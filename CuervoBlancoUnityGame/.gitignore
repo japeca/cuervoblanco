@@ -1,0 +1,21 @@
+# Archivos y carpetas generadas por Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# Carpetas de configuración específica del usuario
+UserSettings/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos y carpetas para Visual Studio
+.vscode/
+*.csproj
+*.sln
+*.userprefs
