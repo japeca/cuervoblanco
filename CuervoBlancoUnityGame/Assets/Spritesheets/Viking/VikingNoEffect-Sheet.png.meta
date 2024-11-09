@@ -1,0 +1,269 @@
+fileFormatVersion: 2
+guid: d1bb20d2aea58ea40b2a562256fb7207
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VikingNoEffect-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 349
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6283125dcc0f1e4fbd2b295642d76ef
+      internalID: -1179866262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VikingNoEffect-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 349
+        width: 33
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb9310f9543a1be4ab97a271c37824f0
+      internalID: 1379425608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VikingNoEffect-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 349
+        width: 33
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301d433f90a829149b4a71ed631d527d
+      internalID: 2076095765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VikingNoEffect-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 349
+        width: 33
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d7c8b63d94239243a182bbb95f105e1
+      internalID: -725601957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      VikingNoEffect-Sheet_0: -1179866262
+      VikingNoEffect-Sheet_1: 1379425608
+      VikingNoEffect-Sheet_10: -1117390731
+      VikingNoEffect-Sheet_11: -1628527825
+      VikingNoEffect-Sheet_12: 1445682737
+      VikingNoEffect-Sheet_13: 1198879003
+      VikingNoEffect-Sheet_14: 1072781677
+      VikingNoEffect-Sheet_15: -1086030054
+      VikingNoEffect-Sheet_16: -467587818
+      VikingNoEffect-Sheet_17: 159088894
+      VikingNoEffect-Sheet_18: -1645021280
+      VikingNoEffect-Sheet_19: -195760190
+      VikingNoEffect-Sheet_2: 2076095765
+      VikingNoEffect-Sheet_20: -743004676
+      VikingNoEffect-Sheet_21: -281730647
+      VikingNoEffect-Sheet_22: 1564079944
+      VikingNoEffect-Sheet_23: 1095089897
+      VikingNoEffect-Sheet_24: 1253405521
+      VikingNoEffect-Sheet_25: 1287734176
+      VikingNoEffect-Sheet_26: -125581485
+      VikingNoEffect-Sheet_27: 1919227576
+      VikingNoEffect-Sheet_28: 103878106
+      VikingNoEffect-Sheet_29: 280274989
+      VikingNoEffect-Sheet_3: -725601957
+      VikingNoEffect-Sheet_30: -230395697
+      VikingNoEffect-Sheet_31: -1864115457
+      VikingNoEffect-Sheet_32: 232544662
+      VikingNoEffect-Sheet_33: -13142781
+      VikingNoEffect-Sheet_34: 875689514
+      VikingNoEffect-Sheet_35: -1934812756
+      VikingNoEffect-Sheet_36: 876244575
+      VikingNoEffect-Sheet_37: -988292876
+      VikingNoEffect-Sheet_38: 1643859523
+      VikingNoEffect-Sheet_39: 1815508943
+      VikingNoEffect-Sheet_4: 851243756
+      VikingNoEffect-Sheet_40: 1458740602
+      VikingNoEffect-Sheet_41: 1910979075
+      VikingNoEffect-Sheet_42: -2112517108
+      VikingNoEffect-Sheet_43: 602948100
+      VikingNoEffect-Sheet_44: -1574293316
+      VikingNoEffect-Sheet_5: -1622136558
+      VikingNoEffect-Sheet_6: -2092448434
+      VikingNoEffect-Sheet_7: 385134138
+      VikingNoEffect-Sheet_8: 118041506
+      VikingNoEffect-Sheet_9: 322793979
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
