@@ -14,10 +14,12 @@ public class viking : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    public float limiteCaida = -10f; // Límite de altura en el eje Y para detectar caída.
 
-    
     private Rigidbody2D RigidBody;
     private float xInput;
+    public CameraFollower camara;
+    public RespawnManager respawnManager;
 
     void Start()
     {
@@ -28,7 +30,15 @@ public class viking : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
-        
+
+        if (transform.position.y < limiteCaida)
+        {
+            IniciarCaida();
+            IniciarRespawn();
+        }
+
+
+
         Flip();
 
         if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
@@ -88,5 +98,23 @@ public class viking : MonoBehaviour
             // Escala X en negativo. El personaje está escalado por 3.
             transform.localScale = new Vector3(-3, 3, 3);
         }
+    }
+
+    private void IniciarCaida()
+    {
+        // Llama al método para detener el seguimiento de la cámara.
+        camara.DetenerSeguimiento();
+
+        
+
+        // Aquí puedes añadir lógica adicional, como iniciar animaciones o esperar antes del respawn.
+        Debug.Log("El personaje ha caído. La cámara deja de seguirlo.");
+    }
+
+    private void IniciarRespawn()
+    {
+        Debug.Log("Personaje ha caído. Iniciando respawn...");
+        respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
+        camara.ReanudarSeguimiento();
     }
 }

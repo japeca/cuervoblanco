@@ -9,6 +9,7 @@ public class PasarSiguienteNivel : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            //obtiene el numero de escena del juego, le suma una más (la siguiente) y la carga.
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

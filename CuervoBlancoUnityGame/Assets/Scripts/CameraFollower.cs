@@ -12,36 +12,39 @@ public class CameraFollower : MonoBehaviour
     public Vector3 desplazamiento;
     public Transform Objetivo;
     public Transform respawnPoint;
-    public float limiteCaida = -10f;
+
+
+    private bool seguirPersonaje = true;
 
 
     private void LateUpdate()
     {
-        if (Objetivo.position.y < limiteCaida)
+        //Se controla que haya siempre un objetivo a la que la camara debe seguir
+        if (Objetivo == null)
         {
-            RespawnPersonaje();
+            Debug.LogError("No se ha asignado un Objetivo para la camara.");
             return;
         }
+
+        if (!seguirPersonaje) return;
+
+       
 
         Vector3 posicionDeseada = Objetivo.position + desplazamiento;
         Vector3 posicionSuavizada = Vector3.Lerp(transform.position, posicionDeseada, speedCam);
         transform.position = posicionSuavizada;
     }
 
-    private void RespawnPersonaje()
+
+    public void DetenerSeguimiento()
     {
-        // Mueve el personaje al punto de reaparicion.
-        Objetivo.position = respawnPoint.position;
+        seguirPersonaje = false;
+    }
 
-       
-        Rigidbody2D rb = Objetivo.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-        }
+    public void ReanudarSeguimiento()
+    {
+        seguirPersonaje = true;
 
-        //Ajustar la camara para posicionarla directamente sobre el personaje.
-        transform.position = respawnPoint.position + desplazamiento;
     }
 
 }

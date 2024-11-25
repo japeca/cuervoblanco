@@ -10,7 +10,7 @@ public class SnowEmitterController : MonoBehaviour
     public Transform character;  // Vikingo
     public ParticleSystem snowParticleSystem;  // El sistema de partículas de nieve
     
-    // Distancia en el eje X desde el personaje a la que quieres que se emita la nieve
+    // Distancia en el eje X desde el personaje a la que se quiere que emitir la nieve
     public float distanceFromCharacter = 2f;  // Por defecto 2f, pero se puede ajustar
 
     private float previousX;
