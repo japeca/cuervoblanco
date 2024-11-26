@@ -131,7 +131,7 @@ TextureImporter:
         width: 33
         height: 44
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
         width: 33
         height: 44
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,48 +160,6 @@ TextureImporter:
       bones: []
       spriteID: fb9310f9543a1be4ab97a271c37824f0
       internalID: 1379425608
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VikingNoEffect-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 268
-        y: 349
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 301d433f90a829149b4a71ed631d527d
-      internalID: 2076095765
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VikingNoEffect-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 349
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d7c8b63d94239243a182bbb95f105e1
-      internalID: -725601957
       vertices: []
       indices: 
       edges: []
