@@ -18,18 +18,23 @@ public class viking : MonoBehaviour
 
     private Rigidbody2D RigidBody;
     private float xInput;
+    private float Horizontal;
+    private Animator Animator;
     public CameraFollower camara;
     public RespawnManager respawnManager;
 
     void Start()
     {
         RigidBody = GetComponent<Rigidbody2D>();
+        Animator = GetComponent<Animator>();
        
     }
 
     void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
+        Horizontal = Input.GetAxisRaw("Horizontal");
+        //Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
+        Animator.SetBool("running",Horizontal != 0.0f);
 
         if (transform.position.y < limiteCaida)
         {
