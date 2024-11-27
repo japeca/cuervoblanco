@@ -9,6 +9,7 @@ public class PlataformaGenerator : MonoBehaviour
     public float distanciaMin = 2f; // Distancia mínima entre plataformas.
     public float distanciaMax = 5f; // Distancia máxima entre plataformas.
     public float alturaMax = 2f; // Altura máxima entre plataformas.
+    public float caida = -1f; //parametro que indica la altura mínima donde se generan las platformas en el eje y.
 
     private Vector3 ultimaPosicion;
 
@@ -29,9 +30,19 @@ public class PlataformaGenerator : MonoBehaviour
 
         Vector3 nuevaPosicion = ultimaPosicion + new Vector3(distanciaX, distanciaY, 0);
 
-        if (nuevaPosicion.y < -4f) // Ajusta el valor según el límite de caída de la escena.
+        if (nuevaPosicion.y < caida)
         {
-            nuevaPosicion.y = -4f; // Reajusta la altura mínima.
+            nuevaPosicion.y = caida + Random.Range(0.5f, 2f); ; // Reajusta la altura mínima.
+        }
+
+
+        //se busca evitar el solapamiento entre plataformas. Se requiere saber su ancho.
+        float anchoPlataforma = plataformaPrefab.GetComponent<Renderer>().bounds.size.x;
+
+        // Asegurar que la nueva plataforma no se solape horizontalmente con la siguiente.
+        if (nuevaPosicion.x < ultimaPosicion.x + anchoPlataforma)
+        {
+            nuevaPosicion.x = ultimaPosicion.x + anchoPlataforma + distanciaMin;
         }
 
 
