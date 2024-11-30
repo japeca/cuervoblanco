@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 299025788}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.84, y: -0.21, z: 0}
+  m_LocalPosition: {x: 36.35, y: -0.21, z: 0}
   m_LocalScale: {x: 3.8505838, y: 2.726509, z: 0.44573244}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 786758571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.075, y: 1.467, z: 0}
+  m_LocalPosition: {x: 39.585, y: 1.467, z: 0}
   m_LocalScale: {x: 1, y: 2.0600002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -918,7 +918,8 @@ MonoBehaviour:
   cantidadPlataformas: 7
   distanciaMin: 2
   distanciaMax: 3.9
-  alturaMax: 1.9
+  alturaMax: 1.89
+  caida: -1
 --- !u!4 &909123973
 Transform:
   m_ObjectHideFlags: 0
