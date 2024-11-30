@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c33214af1272ca42b5a131d08879d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personaje: {fileID: 0}
+  personaje: {fileID: 588245296}
   puntoRespawn: {fileID: 1959553089}
 --- !u!4 &455559253
 Transform:
@@ -778,6 +778,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 568988443310570743, guid: 071f1f6d8fa16d6439b07f862444de9c, type: 3}
+      propertyPath: camara
+      value: 
+      objectReference: {fileID: 519420033}
+    - target: {fileID: 568988443310570743, guid: 071f1f6d8fa16d6439b07f862444de9c, type: 3}
+      propertyPath: respawnManager
+      value: 
+      objectReference: {fileID: 455559252}
     - target: {fileID: 7984340987171719287, guid: 071f1f6d8fa16d6439b07f862444de9c, type: 3}
       propertyPath: m_Name
       value: Viking
