@@ -759,8 +759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plataformaPrefab: {fileID: 1872841793}
   cantidadPlataformas: 7
-  distanciaMin: 3.5
-  distanciaMax: 3.9
+  distanciaMin: 3.67
+  distanciaMax: 4.2
   alturaMax: 1.79
   caida: -1
 --- !u!4 &909123973

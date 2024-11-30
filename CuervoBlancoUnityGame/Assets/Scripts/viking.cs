@@ -20,6 +20,8 @@ public class viking : MonoBehaviour
     private float xInput;
     private float Horizontal;
     private Animator Animator;
+    private bool atacando;
+
     public CameraFollower camara;
     public RespawnManager respawnManager;
 
@@ -35,6 +37,7 @@ public class viking : MonoBehaviour
         Horizontal = Input.GetAxisRaw("Horizontal");
         //Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
         Animator.SetBool("running",Horizontal != 0.0f);
+        Animator.SetBool("atacando", atacando);
 
         if (transform.position.y < limiteCaida)
         {
@@ -42,9 +45,16 @@ public class viking : MonoBehaviour
             IniciarRespawn();
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Atacando();
+        }
 
         Flip();
+
+
+
+      
 
         if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
         {
@@ -115,6 +125,17 @@ public class viking : MonoBehaviour
         // Aquí puedes añadir lógica adicional, como iniciar animaciones o esperar antes del respawn.
         Debug.Log("El personaje ha caído. La cámara deja de seguirlo.");
     }
+
+    public void Atacando()
+    {
+        atacando = true;
+    }
+
+    public void detenAtaque()
+    {
+        atacando = false;
+    }
+
 
     private void IniciarRespawn()
     {
