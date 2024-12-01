@@ -21,15 +21,26 @@ public class viking : MonoBehaviour
     private float Horizontal;
     private Animator Animator;
     private bool atacando;
+    private PlataformaManager plataformaManager;
 
     public CameraFollower camara;
     public RespawnManager respawnManager;
+
 
     void Start()
     {
         RigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        plataformaManager = FindObjectOfType<PlataformaManager>();
+
        
+        if (plataformaManager == null)
+        {
+            Debug.Log("No se encontró un PlataformaManager en esta escena. Ignorando la regeneración de plataformas.");
+        }
+
+        
+
     }
 
     void Update()
@@ -51,10 +62,6 @@ public class viking : MonoBehaviour
         }
 
         Flip();
-
-
-
-      
 
         if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
         {
@@ -119,10 +126,13 @@ public class viking : MonoBehaviour
     {
         // Llama al método para detener el seguimiento de la cámara.
         camara.DetenerSeguimiento();
+        if (plataformaManager != null)
+        {
+            plataformaManager.DesactivarPlataformasInmediatamente(); // Desactiva inmediatamente.
+        }
 
-        
 
-        // Aquí puedes añadir lógica adicional, como iniciar animaciones o esperar antes del respawn.
+        // Aquí se puede añadir lógica adicional, como iniciar animaciones o esperar antes del respawn.
         Debug.Log("El personaje ha caído. La cámara deja de seguirlo.");
     }
 
@@ -139,8 +149,17 @@ public class viking : MonoBehaviour
 
     private void IniciarRespawn()
     {
-        Debug.Log("Personaje ha caído. Iniciando respawn...");
+        Debug.Log("Personaje ha caído. Iniciando respawn.");
+
+        if (plataformaManager != null)
+        {
+            plataformaManager.RegenerarPlataformas();
+        }
+
         respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
         camara.ReanudarSeguimiento();
+
+        
+
     }
 }

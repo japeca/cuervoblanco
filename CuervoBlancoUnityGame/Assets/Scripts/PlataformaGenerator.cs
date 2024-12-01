@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlataformaGenerator : MonoBehaviour
 {
     public GameObject plataformaPrefab; // Prefab de la plataforma.
-    public int cantidadPlataformas = 5; // Número de plataformas a generar.
+    public GameObject plataformaDesplo; // Prefab de la plataforma.
+    public int cantidadPlataformas = 5; // Numero de plataformas a generar.
     public float distanciaMin = 2f; // Distancia mínima entre plataformas.
     public float distanciaMax = 5f; // Distancia máxima entre plataformas.
     public float alturaMax = 2f; // Altura máxima entre plataformas.
@@ -45,8 +46,18 @@ public class PlataformaGenerator : MonoBehaviour
             nuevaPosicion.x = ultimaPosicion.x + anchoPlataforma + distanciaMin;
         }
 
+        GameObject prefabPlataforma;
 
-        Instantiate(plataformaPrefab, nuevaPosicion, Quaternion.identity);
+        if (Random.value < 0.5f) // 10% de probabilidad de ser desplomable.
+        {
+            prefabPlataforma = plataformaDesplo;
+        }
+        else
+        {
+            prefabPlataforma = plataformaPrefab;
+        }
+
+        Instantiate(prefabPlataforma, nuevaPosicion, Quaternion.identity);
         ultimaPosicion = nuevaPosicion;
     }
 }
