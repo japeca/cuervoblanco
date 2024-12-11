@@ -1,0 +1,5 @@
+W -> Saltar
+A -> Izquierda
+D -> Derecha
+Espacio -> Atacar
+Escape -> Menu de pausa
