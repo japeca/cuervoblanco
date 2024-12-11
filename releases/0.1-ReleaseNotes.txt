@@ -1,0 +1,16 @@
+Nivel 1 - Plataformas desplomables
+Nivel 2 - Vacio (se añadirá terreno perlin noise o habitaciones logicas + enemigo(s))
+Nivel 3 - Vacio (se añadirá terreno perlin noise o habitaciones logicas + jefe final)
+
+Trabajando en:
+- Enemigo comun
+- Salud de enemigo
+- Salud de personaje principal
+- Daño enemigo
+
+A futuros
+- Pantalla de Gameover
+- Menu principal
+- Jefe principal
+- Creación habitaciones lógicas
+- Musica y sonidos
