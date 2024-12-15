@@ -94,16 +94,29 @@ public class viking : MonoBehaviour
     //funcion que devuelve TRUE si está en el suelo
     private bool IsGrounded()
     {
-        Ray2D ray = new Ray2D(groundCheck.position, Vector2.down);
-
+        //version inicial
+        //Ray2D ray = new Ray2D(groundCheck.position, Vector2.down);
         // Se lanza el rayo y se guarda la colisión
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 0.02f, whatIsGround);
+        //RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 0.3f, whatIsGround);
         //Debug.DrawRay(ray.origin, ray.direction * 0.05f, Color.red);
-
         // Devuelve "true" si el rayo ha detectado suelo y "false" si no.
         //bool chocado = hit.collider; //util para el debug
         //Debug.Log("hit.collider: " + chocado);
-        return hit.collider is not null;
+        //return hit.collider is not null;
+        
+        
+        
+        //otra aproximacion
+        Vector2 posicion = groundCheck.position; // Posición del groundCheck.
+        float radio = 0.25f; // Radio del círculo de detección.
+        return Physics2D.OverlapCircle(posicion, radio, whatIsGround) != null;
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
     }
 
     private void Flip()

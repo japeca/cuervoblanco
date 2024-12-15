@@ -151,7 +151,7 @@ public class EnemyAI : MonoBehaviour
             tiempoUltimoAtaque = Time.time;
             Debug.Log("Atacando al jugador con daño: " + daño);
 
-            // Aquí puedes implementar el sistema de salud del jugador.
+            // Pendiente implementar salud del jugador.
         }
     }
 
