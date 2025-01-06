@@ -4,8 +4,10 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Patrullaje")]
     public float velocidadPatrulla = 2f;
+    /*
     public Transform limiteMin; // Límite inferior (respawn del personaje).
     public Transform limiteMax; // Límite superior (puerta al final de la escena).
+    */
 
     [Header("Detección del jugador")]
     public float rangoDeteccion = 5f;
@@ -21,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     public Transform detectorSuelo; // Un punto de detección en el borde del enemigo.
     public float rangoDeteccionSuelo = 0.5f; // Distancia para detectar suelo.
     public LayerMask capaSuelo; // Capa que define las superficies sólidas
+    
 
     private Rigidbody2D rb;
     private Transform jugador;
@@ -66,13 +69,31 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Vector2 direccionDano = new Vector2(transform.position.x, 0);
+            collision.gameObject.GetComponent<viking>().RecibeDano(direccionDano, 1);
+        }
+    }
+
 
     private void detectarSuelo()
     {
-        RaycastHit2D sueloDetectado = Physics2D.Raycast(detectorSuelo.position, Vector2.down, rangoDeteccionSuelo, capaSuelo);
+        /*RaycastHit2D sueloDetectado = Physics2D.Raycast(detectorSuelo.position, Vector2.down, rangoDeteccionSuelo, capaSuelo);
         if (!sueloDetectado.collider)
         {
             Girar(); // Si no hay suelo, girar.
+        }*/
+        RaycastHit2D infosuelo = Physics2D.Raycast(detectorSuelo.position, Vector2.down, rangoDeteccionSuelo);
+        rb.velocity = new Vector2(velocidadPatrulla, rb.velocity.y);
+
+        if (!infosuelo)
+        {
+            //hay que girar al enemigo
+            Girar();
+
         }
     }
 
@@ -98,30 +119,14 @@ public class EnemyAI : MonoBehaviour
         if (moviendoDerecha)
         {
             rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
-
-
             detectarPared();
             detectarSuelo();
-
-            if (transform.position.x >= limiteMax.position.x)
-            {
-                moviendoDerecha = false;
-                Girar();
-            }
         }
         else
         {
             rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
-
             detectarPared();
             detectarSuelo();
-
-
-            if (transform.position.x <= limiteMin.position.x)
-            {
-                moviendoDerecha = true;
-                Girar();
-            }
         }
     }
 
@@ -139,6 +144,7 @@ public class EnemyAI : MonoBehaviour
         {
             Girar();
         }
+        detectarSuelo();
     }
 
     private void AtacarJugador()
@@ -158,6 +164,19 @@ public class EnemyAI : MonoBehaviour
     private void Girar()
     {
         moviendoDerecha = !moviendoDerecha;
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180);
+        velocidadPatrulla *= -1;
+    }
+
+
+    private void FixedUpdate()
+    {
+        detectarSuelo();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(detectorSuelo.transform.position, detectorSuelo.transform.position + Vector3.down * rangoDeteccionSuelo);
     }
 }

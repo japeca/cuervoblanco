@@ -27,6 +27,7 @@ public class PlataformaDesplomable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) // Detecta al jugador.
         {
+
             Vector2 normalColision = collision.contacts[0].normal;
             if (normalColision.y < -0.5f) // Umbral de pruebas. Normalmente con -1 valdria.
             {

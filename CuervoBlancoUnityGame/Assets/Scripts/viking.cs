@@ -25,6 +25,8 @@ public class viking : MonoBehaviour
 
     public CameraFollower camara;
     public RespawnManager respawnManager;
+    public bool recibiendoDano;
+    public float fuerzaRebote = 5f;
 
 
     void Start()
@@ -49,6 +51,7 @@ public class viking : MonoBehaviour
         //Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
         Animator.SetBool("running",Horizontal != 0.0f);
         Animator.SetBool("atacando", atacando);
+        Animator.SetBool("recibedano", recibiendoDano);
 
         if (transform.position.y < limiteCaida)
         {
@@ -154,9 +157,25 @@ public class viking : MonoBehaviour
         atacando = true;
     }
 
-    public void detenAtaque()
+    public void DetenAtaque()
     {
         atacando = false;
+    }
+
+    public void RecibeDano(Vector2 direccion, int cantidadDano) {
+        if (!recibiendoDano)
+        {
+            recibiendoDano = true;
+            Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
+            RigidBody.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+        }
+        
+    }
+
+    public void DesactivaDano()
+    {
+        recibiendoDano = false;
+        RigidBody.velocity = Vector2.zero;
     }
 
 
@@ -171,8 +190,5 @@ public class viking : MonoBehaviour
 
         respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
         camara.ReanudarSeguimiento();
-
-        
-
     }
 }

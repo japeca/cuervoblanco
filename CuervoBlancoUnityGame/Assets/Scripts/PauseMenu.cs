@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         // Aquí cargaré la escena del menú principal cuando la tenga implementada
-        // SceneManager.LoadScene("MenuPrincipal");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void SalirDelJuego()
