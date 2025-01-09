@@ -20,13 +20,17 @@ public class viking : MonoBehaviour
     private float xInput;
     private float Horizontal;
     private Animator Animator;
-    private bool atacando;
+    public bool atacando;
     private PlataformaManager plataformaManager;
+    
 
     public CameraFollower camara;
     public RespawnManager respawnManager;
     public bool recibiendoDano;
     public float fuerzaRebote = 5f;
+    public float vida = 3;
+    public bool muerto;
+    public bool isRespawned = false;
 
 
     void Start()
@@ -34,8 +38,9 @@ public class viking : MonoBehaviour
         RigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         plataformaManager = FindObjectOfType<PlataformaManager>();
+        
 
-       
+
         if (plataformaManager == null)
         {
             Debug.Log("No se encontró un PlataformaManager en esta escena. Ignorando la regeneración de plataformas.");
@@ -47,11 +52,18 @@ public class viking : MonoBehaviour
 
     void Update()
     {
+        if (muerto)
+        {
+            RigidBody.velocity = Vector2.zero;
+            return;
+        }
+
         Horizontal = Input.GetAxisRaw("Horizontal");
         //Debug.DrawRay(transform.position, Vector3.down * 0.6f, Color.red);
-        Animator.SetBool("running",Horizontal != 0.0f);
+        Animator.SetBool("running", Horizontal != 0.0f);
         Animator.SetBool("atacando", atacando);
         Animator.SetBool("recibedano", recibiendoDano);
+        //Animator.SetBool("muerto", muerto);
 
         if (transform.position.y < limiteCaida)
         {
@@ -59,6 +71,15 @@ public class viking : MonoBehaviour
             IniciarRespawn();
         }
 
+
+        Controles();
+
+
+
+    }
+
+    private void Controles()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Atacando();
@@ -88,6 +109,11 @@ public class viking : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (muerto)
+        {
+            RigidBody.velocity = Vector2.zero; // Detener cualquier movimiento residual.
+            return;
+        }
         // Capturamos teclado
         xInput = Input.GetAxisRaw("Horizontal");
         Vector2 move = new Vector2(xInput * speed, RigidBody.velocity.y);
@@ -160,14 +186,27 @@ public class viking : MonoBehaviour
     public void DetenAtaque()
     {
         atacando = false;
+        Invoke(nameof(DetenAtaque), 0.5f);
     }
 
     public void RecibeDano(Vector2 direccion, int cantidadDano) {
-        if (!recibiendoDano)
+        if (!recibiendoDano && !muerto)
         {
             recibiendoDano = true;
+            vida -= cantidadDano;
+            if (vida <= 0)
+            {
+                muerto = true;
+                Animator.SetBool("muerto", true); // Activar animación de muerte.
+                RigidBody.velocity = Vector2.zero; // Detener movimiento.
+                //Invoke(nameof(ReiniciarNivel), 2f);
+                //StartCoroutine(RespawnDespuesDeMuerte() );
+                return;
+            }
+            
             Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
             RigidBody.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+            
         }
         
     }
@@ -181,14 +220,55 @@ public class viking : MonoBehaviour
 
     private void IniciarRespawn()
     {
-        Debug.Log("Personaje ha caído. Iniciando respawn.");
+        if (vida <= 0)
+        {
+            // Activar animación de muerte antes del reinicio
+            Animator.SetBool("muerto", true);
+            Debug.Log("El personaje está muerto. Reiniciando nivel...");
+
+            // Invoca el reinicio del nivel tras la duración de la animación
+            //float duracionMuerte = Animator.GetCurrentAnimatorStateInfo(0).length; // Duración de la animación actual
+            Invoke(nameof(ReiniciarNivel), 0.2f);
+            return; // Detenemos la ejecución del resto del método
+        }
+
+
+        isRespawned = true;
+        Debug.Log("Personaje ha caído o ha muerto. Iniciando respawn.");   
+        Animator.SetBool("muerto", false);
+        Animator.Play("Idle");
 
         if (plataformaManager != null)
         {
             plataformaManager.RegenerarPlataformas();
         }
 
+        muerto = false;
+        recibiendoDano = false;
+        vida = vida - 1;
+        EnemyAI enemyScript = FindObjectOfType<EnemyAI>();
+        if (enemyScript != null)
+        {
+            enemyScript.ResetEnemy();
+        }
         respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
         camara.ReanudarSeguimiento();
+    }
+
+    
+
+    private IEnumerator RespawnDespuesDeMuerte()
+    {
+        // Esperar el tiempo que dura la animación de muerte.
+        yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Llamar al respawn.
+        IniciarRespawn();
+    }
+
+
+    private void ReiniciarNivel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 }

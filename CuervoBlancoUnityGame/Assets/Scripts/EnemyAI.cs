@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -23,59 +25,171 @@ public class EnemyAI : MonoBehaviour
     public Transform detectorSuelo; // Un punto de detección en el borde del enemigo.
     public float rangoDeteccionSuelo = 0.5f; // Distancia para detectar suelo.
     public LayerMask capaSuelo; // Capa que define las superficies sólidas
-    
+    public int vida = 3;
+    public float fuerzaRebote = 5f;
 
     private Rigidbody2D rb;
     private Transform jugador;
     private bool moviendoDerecha = true;
     private bool persiguiendo = false;
     private float tiempoUltimoAtaque;
+    private bool playerIsAlive;
+    private bool enMovimiento;
+    private bool muerto;
+    private viking playerController;
+    private bool recibiendoDano;
+    private Vector2 movement;
 
     Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        enMovimiento = true;
         jugador = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
+        playerIsAlive = true;
+        playerController = GameObject.Find("Viking").GetComponent<viking>();
+        muerto = false;
     }
 
     void Update()
     {
-        // Detectar si el jugador está en rango.
-        if (jugador != null && Vector2.Distance(transform.position, jugador.position) <= rangoDeteccion)
+        if (playerController != null && !playerController.muerto && !muerto)
         {
-            persiguiendo = true;
+            Movimiento();
         }
         else
         {
-            persiguiendo = false;
+            if (muerto == true)
+            {
+                enMovimiento = true;
+                movement = Vector2.zero;
+                animator.SetBool("muerto", muerto);
+            }
         }
 
-        if (persiguiendo)
-        {
-            PerseguirJugador();
-        }
-        else
-        {
-            Patrullar();
-        }
-
-        // Comprobar si el enemigo está en rango para atacar.
-        if (jugador != null && Vector2.Distance(transform.position, jugador.position) <= rangoAtaque)
-        {
-            AtacarJugador();
-        }
     }
 
 
+
+    private void Movimiento()
+    {
+        if (playerIsAlive && !muerto)
+        {
+            // Detectar si el jugador está en rango.
+            if (jugador != null && Vector2.Distance(transform.position, jugador.position) <= rangoDeteccion)
+            {
+                persiguiendo = true;
+            }
+            else
+            {
+                persiguiendo = false;
+            }
+
+            if (persiguiendo)
+            {
+                PerseguirJugador();
+            }
+            else
+            {
+                Patrullar();
+            }
+
+            // Comprobar si el enemigo está en rango para atacar.
+            if (jugador != null && Vector2.Distance(transform.position, jugador.position) <= rangoAtaque)
+            {
+                AtacarJugador();
+            }
+            enMovimiento = true;
+        }
+        else
+        {
+            movement = Vector2.zero;
+            enMovimiento = false;
+        }
+
+    }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector2 direccionDano = new Vector2(transform.position.x, 0);
-            collision.gameObject.GetComponent<viking>().RecibeDano(direccionDano, 1);
+            viking playerScript = collision.gameObject.GetComponent<viking>();
+            playerScript.RecibeDano(direccionDano, 1);
+
+            playerIsAlive = !playerScript.muerto;
+            if (!playerIsAlive)
+            {
+                enMovimiento = false;
+            }
         }
+    }
+
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("axe"))
+
+        {
+            viking playerScript = collision.GetComponentInParent<viking>();
+            if (playerScript != null && playerScript.atacando)
+            {
+                Vector2 direccionDanio = new Vector2(collision.gameObject.transform.position.x, 0);
+                RecibeDano(direccionDanio, 1);
+            }
+                
+
+        }
+    }
+
+    public void RecibeDano(Vector2 direccion, int cantidadDano)
+    {
+        if (muerto) return;
+
+        recibiendoDano = true;
+        vida -= cantidadDano;
+        StartCoroutine(Parpadear());
+
+        if (vida <= 0)
+        {
+            muerto = true;
+            animator.SetBool("muerto", true);
+            rb.velocity = Vector2.zero; // Detener movimiento.
+            rb.isKinematic = true; // Evitar interacciones físicas.
+            Invoke("HandleDeath", animator.GetCurrentAnimatorStateInfo(0).length);
+            return;
+        }
+
+        Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
+        rb.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
+    }
+
+    private void HandleDeath()
+    {
+        gameObject.SetActive(false); // Desactivar el enemigo.
+    }
+
+
+
+    private IEnumerator Parpadear()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        float duracionParpadeo = 0.3f; // Duración total del parpadeo en segundos.
+        float intervaloParpadeo = 0.05f; // Tiempo entre cada parpadeo (apagado y encendido).
+
+        float tiempo = 0f;
+
+        while (tiempo < duracionParpadeo)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled; // Alternar visibilidad.
+            yield return new WaitForSeconds(intervaloParpadeo);
+            tiempo += intervaloParpadeo;
+        }
+
+        spriteRenderer.enabled = true; // Asegurarse de que el sprite esté visible al final.
     }
 
 
@@ -116,19 +230,26 @@ public class EnemyAI : MonoBehaviour
         animator.SetBool("patrullando", true);
 
 
-        if (moviendoDerecha)
+        if (!recibiendoDano)
         {
-            rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
-            detectarPared();
-            detectarSuelo();
-        }
-        else
-        {
-            rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
-            detectarPared();
-            detectarSuelo();
+            if (moviendoDerecha)
+            {
+                rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
+                detectarPared();
+                detectarSuelo();
+            }
+            else
+            {
+                rb.velocity = new Vector2((moviendoDerecha ? velocidadPatrulla : -velocidadPatrulla), rb.velocity.y);
+                detectarPared();
+                detectarSuelo();
+            }
         }
     }
+
+
+
+
 
     private void PerseguirJugador()
     {
@@ -149,15 +270,15 @@ public class EnemyAI : MonoBehaviour
 
     private void AtacarJugador()
     {
+        rb.velocity = Vector2.zero;
         animator.SetBool("persiguiendo", false);
         animator.SetBool("atacando", true);
+        
 
         if (Time.time - tiempoUltimoAtaque >= tiempoEntreAtaques)
         {
             tiempoUltimoAtaque = Time.time;
             Debug.Log("Atacando al jugador con daño: " + daño);
-
-            // Pendiente implementar salud del jugador.
         }
     }
 
@@ -169,14 +290,28 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+
+
     private void FixedUpdate()
     {
-        detectarSuelo();
+        if (!muerto) detectarSuelo();
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(detectorSuelo.transform.position, detectorSuelo.transform.position + Vector3.down * rangoDeteccionSuelo);
+        Gizmos.DrawWireSphere(transform.position, rangoDeteccion);
+    }
+
+    public void ResetEnemy()
+    {
+        playerIsAlive = true;
+        enMovimiento = true;
+        persiguiendo = false;
+        rb.velocity = Vector2.zero;
+        animator.SetBool("patrullando", true);
+        animator.SetBool("persiguiendo", false);
+        animator.SetBool("atacando", false);
     }
 }
