@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 69369680317866127}
   - component: {fileID: 8199374127300492130}
   - component: {fileID: 3249891779305038190}
-  m_Layer: 0
+  - component: {fileID: 393106837907439772}
+  m_Layer: 3
   m_Name: PlataformaDesplo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,3 +159,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &393106837907439772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803177128632511337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09232b070bdce24fb2d60c9d8e557c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoAntesDeCaer: 0.5
+  tiempoParaDestruir: 0.2

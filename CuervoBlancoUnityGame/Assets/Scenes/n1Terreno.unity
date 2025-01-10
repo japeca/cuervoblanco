@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 866232242}
   - component: {fileID: 866232241}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: GridProce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3597,7 +3597,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2248397813626167007, guid: b062ed1596b403a4cb460427a3369f51, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 44.355873
+      value: 45.29
       objectReference: {fileID: 0}
     - target: {fileID: 2248397813626167007, guid: b062ed1596b403a4cb460427a3369f51, type: 3}
       propertyPath: m_LocalPosition.y
