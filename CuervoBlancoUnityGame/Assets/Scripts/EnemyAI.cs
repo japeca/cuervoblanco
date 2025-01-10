@@ -138,6 +138,7 @@ public class EnemyAI : MonoBehaviour
             if (playerScript != null && playerScript.atacando)
             {
                 Vector2 direccionDanio = new Vector2(collision.gameObject.transform.position.x, 0);
+                Debug.Log("Hacha detectada. Aplicando daño.");
                 RecibeDano(direccionDanio, 1);
             }
                 

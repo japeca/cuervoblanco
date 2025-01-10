@@ -22,7 +22,8 @@ public class viking : MonoBehaviour
     private Animator Animator;
     public bool atacando;
     private PlataformaManager plataformaManager;
-    
+    private bool notificacionEnviada = false;
+
 
     public CameraFollower camara;
     public RespawnManager respawnManager;
@@ -218,7 +219,7 @@ public class viking : MonoBehaviour
     }
 
 
-    private void IniciarRespawn()
+    /*private void IniciarRespawn()
     {
         if (vida <= 0)
         {
@@ -228,7 +229,8 @@ public class viking : MonoBehaviour
 
             // Invoca el reinicio del nivel tras la duración de la animación
             //float duracionMuerte = Animator.GetCurrentAnimatorStateInfo(0).length; // Duración de la animación actual
-            Invoke(nameof(ReiniciarNivel), 0.2f);
+            //Invoke(nameof(ReiniciarNivel), 0.2f);
+            Invoke(nameof(NotificarMuerte), 0.2f);
             return; // Detenemos la ejecución del resto del método
         }
 
@@ -253,22 +255,44 @@ public class viking : MonoBehaviour
         }
         respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
         camara.ReanudarSeguimiento();
+    }*/
+
+
+    private void IniciarRespawn()
+    {
+        if (vida <= 0)
+        {
+            Animator.SetBool("muerto", true);
+            Debug.Log("El personaje está muerto. Notificando al GameManager...");
+            Invoke(nameof(NotificarMuerte), 0.5f); // Añade un retraso si quieres ver la animación de muerte.
+            return;
+        }
+
+        // Lógica de respawn normal
+        isRespawned = true;
+        Animator.SetBool("muerto", false);
+        Animator.Play("Idle");
+
+        if (plataformaManager != null)
+        {
+            plataformaManager.RegenerarPlataformas();
+        }
+
+        muerto = false;
+        recibiendoDano = false;
+        vida--;
+
+        respawnManager.Respawn();
+        camara.ReanudarSeguimiento();
     }
 
-    
 
-    private IEnumerator RespawnDespuesDeMuerte()
+    private void NotificarMuerte()
     {
-        // Esperar el tiempo que dura la animación de muerte.
-        yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
-
-        // Llamar al respawn.
-        IniciarRespawn();
-    }
-
-
-    private void ReiniciarNivel()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        if (notificacionEnviada) return;
+        
+        notificacionEnviada = true;
+        GameManager.instancia.IncrementarMuertes();
+        //IniciarRespawn();
     }
 }

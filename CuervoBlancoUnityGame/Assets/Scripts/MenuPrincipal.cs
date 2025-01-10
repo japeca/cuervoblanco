@@ -61,6 +61,12 @@ public class MenuPrincipal : MonoBehaviour
     void IniciarJuego()
     {
         Debug.Log("Iniciando juego en nivel: " + nivelSeleccionado);
+        if (GameManager.instancia != null)
+        {
+            GameManager.instancia.ReiniciarEstado();
+        }
+
+
         SceneManager.LoadScene(nivelSeleccionado); //  Cargar la escena seleccionada.
     }
 
