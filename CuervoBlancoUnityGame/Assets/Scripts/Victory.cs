@@ -7,9 +7,16 @@ public class Victory : MonoBehaviour
     
     [Header("Referencias")]
     public ParticleSystem[] lanzadoresConfeti; // Array de sistemas de partículas.
-    public float duracionConfeti = 5f; // Duración del confeti.
+    public float duracionConfeti = 1f; // Duración del confeti.
 
     private bool nivelCompletado = false; // Evitar múltiples activaciones.
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        // Inicializar la referencia
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +25,10 @@ public class Victory : MonoBehaviour
             nivelCompletado = true;
             ActivarConfeti();
             Invoke(nameof(FinalizarNivel), duracionConfeti);
+            if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.Play();
+            }
         }
     }
 

@@ -23,7 +23,7 @@ public class viking : MonoBehaviour
     public bool atacando;
     private PlataformaManager plataformaManager;
     private bool notificacionEnviada = false;
-
+    private AudioSource audioSource; 
 
     public CameraFollower camara;
     public RespawnManager respawnManager;
@@ -39,7 +39,7 @@ public class viking : MonoBehaviour
         RigidBody = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         plataformaManager = FindObjectOfType<PlataformaManager>();
-        
+        audioSource = GetComponent<AudioSource>();
 
 
         if (plataformaManager == null)
@@ -47,7 +47,7 @@ public class viking : MonoBehaviour
             Debug.Log("No se encontró un PlataformaManager en esta escena. Ignorando la regeneración de plataformas.");
         }
 
-        
+
 
     }
 
@@ -133,9 +133,9 @@ public class viking : MonoBehaviour
         //bool chocado = hit.collider; //util para el debug
         //Debug.Log("hit.collider: " + chocado);
         //return hit.collider is not null;
-        
-        
-        
+
+
+
         //otra aproximacion
         Vector2 posicion = groundCheck.position; // Posición del groundCheck.
         float radio = 0.25f; // Radio del círculo de detección.
@@ -184,6 +184,11 @@ public class viking : MonoBehaviour
         if (atacando) return;
         atacando = true;
         Animator.SetBool("atacando", true);
+
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play();
+        }
     }
 
     public void DetenAtaque()
@@ -192,7 +197,8 @@ public class viking : MonoBehaviour
         //Invoke(nameof(DetenAtaque), 0.5f);
     }
 
-    public void RecibeDano(Vector2 direccion, int cantidadDano) {
+    public void RecibeDano(Vector2 direccion, int cantidadDano)
+    {
         if (!recibiendoDano && !muerto)
         {
             recibiendoDano = true;
@@ -206,12 +212,12 @@ public class viking : MonoBehaviour
                 //StartCoroutine(RespawnDespuesDeMuerte() );
                 return;
             }
-            
+
             Vector2 rebote = new Vector2(transform.position.x - direccion.x, 0.2f).normalized;
             RigidBody.AddForce(rebote * fuerzaRebote, ForceMode2D.Impulse);
-            
+
         }
-        
+
     }
 
     public void DesactivaDano()
@@ -220,44 +226,6 @@ public class viking : MonoBehaviour
         RigidBody.velocity = Vector2.zero;
     }
 
-
-    /*private void IniciarRespawn()
-    {
-        if (vida <= 0)
-        {
-            // Activar animación de muerte antes del reinicio
-            Animator.SetBool("muerto", true);
-            Debug.Log("El personaje está muerto. Reiniciando nivel...");
-
-            // Invoca el reinicio del nivel tras la duración de la animación
-            //float duracionMuerte = Animator.GetCurrentAnimatorStateInfo(0).length; // Duración de la animación actual
-            //Invoke(nameof(ReiniciarNivel), 0.2f);
-            Invoke(nameof(NotificarMuerte), 0.2f);
-            return; // Detenemos la ejecución del resto del método
-        }
-
-
-        isRespawned = true;
-        Debug.Log("Personaje ha caído o ha muerto. Iniciando respawn.");   
-        Animator.SetBool("muerto", false);
-        Animator.Play("Idle");
-
-        if (plataformaManager != null)
-        {
-            plataformaManager.RegenerarPlataformas();
-        }
-
-        muerto = false;
-        recibiendoDano = false;
-        vida = vida - 1;
-        EnemyAI enemyScript = FindObjectOfType<EnemyAI>();
-        if (enemyScript != null)
-        {
-            enemyScript.ResetEnemy();
-        }
-        respawnManager.Respawn(); // Llama al método Respawn() para reubicar al personaje.
-        camara.ReanudarSeguimiento();
-    }*/
 
 
     private void IniciarRespawn()
@@ -292,7 +260,7 @@ public class viking : MonoBehaviour
     private void NotificarMuerte()
     {
         if (notificacionEnviada) return;
-        
+
         notificacionEnviada = true;
         GameManager.instancia.IncrementarMuertes();
         //IniciarRespawn();
