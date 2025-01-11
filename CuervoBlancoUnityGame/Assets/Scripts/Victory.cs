@@ -9,7 +9,7 @@ public class Victory : MonoBehaviour
     public ParticleSystem[] lanzadoresConfeti; // Array de sistemas de partículas.
     public float duracionConfeti = 5f; // Duración del confeti.
 
-    private bool nivelCompletado = false; // Para evitar múltiples activaciones.
+    private bool nivelCompletado = false; // Evitar múltiples activaciones.
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
