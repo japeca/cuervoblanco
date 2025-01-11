@@ -181,13 +181,15 @@ public class viking : MonoBehaviour
 
     public void Atacando()
     {
+        if (atacando) return;
         atacando = true;
+        Animator.SetBool("atacando", true);
     }
 
     public void DetenAtaque()
     {
         atacando = false;
-        Invoke(nameof(DetenAtaque), 0.5f);
+        //Invoke(nameof(DetenAtaque), 0.5f);
     }
 
     public void RecibeDano(Vector2 direccion, int cantidadDano) {

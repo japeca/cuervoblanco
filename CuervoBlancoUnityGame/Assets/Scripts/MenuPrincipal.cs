@@ -33,8 +33,8 @@ public class MenuPrincipal : MonoBehaviour
 
         for (int i = 1; i < totalNiveles; i++) // Empieza desde el índice 1 para omitir el menú principal.
         {
-            // Excluir índices específicos (por ejemplo, escena 4 es "Game Over").
-            if (i != 5)
+            // Escena 5 es "Game Over" y 6 es "Vitoria" ).
+            if (i != 5 && i != 6)
             {
                 opciones.Add("Nivel " + (i - 1)); // Ajustar el número mostrado.
             }
@@ -65,8 +65,6 @@ public class MenuPrincipal : MonoBehaviour
         {
             GameManager.instancia.ReiniciarEstado();
         }
-
-
         SceneManager.LoadScene(nivelSeleccionado); //  Cargar la escena seleccionada.
     }
 

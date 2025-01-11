@@ -1434,6 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bd110428916c34ba4985901d1dbb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidasTexto: {fileID: 0}
   maxMuertes: 3
   muertesActuales: 0
 --- !u!4 &1821970230

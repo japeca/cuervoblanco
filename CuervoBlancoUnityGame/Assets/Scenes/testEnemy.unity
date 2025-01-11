@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bd110428916c34ba4985901d1dbb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidasTexto: {fileID: 0}
   maxMuertes: 3
   muertesActuales: 0
 --- !u!4 &340121926
@@ -1901,7 +1902,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

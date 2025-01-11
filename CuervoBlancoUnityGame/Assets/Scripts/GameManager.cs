@@ -4,11 +4,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instancia;
+    
 
     [Header("Configuraciones del Juego")]
     public int maxMuertes = 3; // Número de muertes permitidas antes del Game Over
     public int muertesActuales = 0; // Contador de muertes
     private bool notificacionEnviada;
+
+
+    
 
     private void Awake()
     {
@@ -30,7 +34,9 @@ public class GameManager : MonoBehaviour
     public void IncrementarMuertes()
     {
         muertesActuales++;
+        
         Debug.Log("Muertes actuales: " + muertesActuales);
+
 
         if (muertesActuales >= maxMuertes)
         {
@@ -50,6 +56,9 @@ public class GameManager : MonoBehaviour
 
     private void MostrarGameOver()
     {
+       
+
+
         // Cargar la escena de Game Over
         SceneManager.LoadScene("GameOver");
     }
@@ -65,9 +74,10 @@ public class GameManager : MonoBehaviour
     public void ReiniciarEstado()
     {
         muertesActuales = 0;
-        maxMuertes = 3; // Ajusta según lo que desees.
+        Debug.Log("Estado reiniciado: muertes actuales = " + muertesActuales);
         Debug.Log("Estado del GameManager reiniciado.");
     }
 
+   
 
 }
