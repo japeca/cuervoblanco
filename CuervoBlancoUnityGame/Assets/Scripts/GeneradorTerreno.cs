@@ -37,7 +37,14 @@ public class GeneradorTerreno : MonoBehaviour
         for (int x = 0; x < anchoTerreno; x++)
         {
             alturas[x] = Mathf.RoundToInt(Mathf.PerlinNoise((x + seed) * escala, 0) * alturaMaxima);
+            Debug.Log($"X: {alturas[x]}");
         }
+        
+        /*
+        for (int i = 0; i<alturas.Length; i++)
+        {
+            Debug.Log("alturas: " + alturas[i]);
+        }*/
 
         // Suavizar alturas
         SuavizarAlturas(alturas);
